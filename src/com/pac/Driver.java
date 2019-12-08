@@ -1,10 +1,9 @@
 package com.pac;
 
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
 
 //This class enables the user to find Anagrams of Words
 public class Driver
@@ -22,14 +21,43 @@ public class Driver
 
 
         //Set Up Dictionary
-        Set<String> dictionary = Collections.unmodifiableSet(new HashSet<>());
+        Set<String> dictionary = null;
+        System.out.println("Please place a file named \"dictionary.txt\" into your downloads folder");
+
+
+        System.out.println("Has the file been placed?");
+        while (GetInput.getYN() != 'y')
+        {
+            System.out.println("Please place the file.");
+            System.out.println("Has the file been placed?");
+        }
+        try
+        {
+            // open the dictionary file and read dictionary into an HashSet
+            Path location = Paths.get(System.getProperty("user.home") + "/Downloads/dictionary.txt");
+            Scanner fileScanner = new Scanner(location.toFile());
+            Set<String> dictionarySetup = new HashSet<String>();
+            while (fileScanner.hasNext())
+            {
+                dictionarySetup.add(fileScanner.next());
+            }
+
+            dictionary = Collections.unmodifiableSet(dictionarySetup);
+        }
+        catch (Exception e)
+        {
+            System.out.println("The file does not exist. Please try again...  :(");
+            return;
+        }
+
+
 
         //LOOP
         while (!b_readyToExit)
         {
             //SELECTIONS
             System.out.println();
-            System.out.println("Would you like to create an Anagram?");
+            System.out.println("Would you like to create an anagram?");
 
             //if they don't want to do anagram things
             if (GetInput.getYN() == 'n')
@@ -55,7 +83,7 @@ public class Driver
         {
             System.out.println("Which word would you find anagrams for?");
             String input = GetInput.getString();
-            System.out.println("Here is a list of all words found within " + input);
+            System.out.println("\nHere is a list of all words found within [" + input + "]");
             SYAnagramer solver = new SYAnagramer(dictionary);
 
             List<String> words = solver.getWords(input);
@@ -66,7 +94,7 @@ public class Driver
             }
             else // if the solver found valid words
             {
-                System.out.print("[" + words.get(0));
+                System.out.print("\n[" + words.get(0));
 
                 for (int i = 1; i < words.size(); i++)
                 {
@@ -74,8 +102,8 @@ public class Driver
                 }
 
                 System.out.println();
-                System.out.println("Would you like to display a list of all possible anagrams in " + input +
-                        ", \n or all anagrams containing fewer than a maximum number of words?");
+                System.out.println("\nWould you like to display a list of all possible anagrams in [" + input +
+                        "], \nor all anagrams containing fewer than a maximum number of words?");
                 System.out.println("[a] All Anagrams");
                 System.out.println("[m] Only those with fewer than a max number of words");
 
