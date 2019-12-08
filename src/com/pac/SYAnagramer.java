@@ -9,7 +9,7 @@ import java.util.Set;
 public class SYAnagramer
 {
 
-    private Set<String> dict;
+    private Set<String> dict;//dictionary
 
     //constructor
     public SYAnagramer(Set<String> dictionary)
@@ -48,6 +48,7 @@ public class SYAnagramer
     printWords(new SYLetterInventory(word),words,new ArrayList<String>(),-1);
     }//end of printAnagrams
 
+    //recursive method that prints all possible anagrams ("helper" method)
     private void printWords(SYLetterInventory remainingLetters, List<String> possibleWords, List<String> currentWords, int maxWords)
     {
         //If an anagram has been found
