@@ -8,13 +8,14 @@ import java.util.HashMap;
 //the a given string has. (caat would have two 'a's, a 'c', and a 't').
 //The strings are sorted and stored in an alphabetical manner (caat --> aact)
 
-public class LetterInventory {
+public class SYLetterInventory
+{
 
     private int size;// the combined count of all the letters
     private HashMap<Character, Integer> letMap;//This map stores the counts for each letter
 
     // constructor - takes in a string
-    public LetterInventory(String input) {
+    public SYLetterInventory(String input) {
         input = input.toLowerCase();//convert input to lower case
         letMap = new HashMap<>();// make a new HashMap to store our letters
 
@@ -110,8 +111,8 @@ public class LetterInventory {
 
     // returns a duplicate letter inventory
 
-    public LetterInventory clone() {
-        return new LetterInventory(this.toString());
+    public SYLetterInventory clone() {
+        return new SYLetterInventory(this.toString());
     }// end of clone
 
     // casts an int to a char (used for visual clarity)
@@ -121,9 +122,9 @@ public class LetterInventory {
 
 
     // adds two LetterInventories together, and returns their combined sums
-    public LetterInventory add(LetterInventory other) {
+    public SYLetterInventory add(SYLetterInventory other) {
         // clone the original list
-        LetterInventory toReturn = this.clone();
+        SYLetterInventory toReturn = this.clone();
         // end of cloning the original list
 
         for (int i = 97; i <= 122; i++)// for each letter in alphabet (from a to z)
@@ -145,9 +146,9 @@ public class LetterInventory {
     }// end of add
 
 
-    public LetterInventory subtract(LetterInventory other) {
+    public SYLetterInventory subtract(SYLetterInventory other) {
         // clone this LetterInventory
-        LetterInventory toReturn = this.clone();
+        SYLetterInventory toReturn = this.clone();
 
         for (int i = 97; i <= 122; i++) {
             if (other.letMap.containsKey(toChr(i)))// if the other map has a letter
@@ -167,7 +168,7 @@ public class LetterInventory {
     }// end of subtract
 
     //does this letter inventory contain another?
-    public boolean contains(LetterInventory other)
+    public boolean contains(SYLetterInventory other)
     {
         //If the other one has more letters, it can't be a subset of this inventory
         if(other.size>this.size())

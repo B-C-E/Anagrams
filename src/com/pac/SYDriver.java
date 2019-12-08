@@ -5,11 +5,11 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 
-//This class enables the user to find Anagrams of Words
-public class Driver
+//This class enables the user to find Anagrams of Words. It's the driver
+public class SYDriver
 {
 
-    //Main driver
+    //Main method
     public static void main(String args[])
     {
         //VARIABLES
@@ -26,7 +26,7 @@ public class Driver
 
 
         System.out.println("Has the file been placed?");
-        while (GetInput.getYN() != 'y')
+        while (SYGetInput.getYN() != 'y')
         {
             System.out.println("Please place the file.");
             System.out.println("Has the file been placed?");
@@ -56,7 +56,7 @@ public class Driver
         System.out.println();
         System.out.println("Would you like to generate anagrams?");
 
-        if(GetInput.getYN() == 'y')//if they want to generate anagrams
+        if(SYGetInput.getYN() == 'y')//if they want to generate anagrams
         {
             solveAnagram(dictionary);//this will loop
         }//end of if they want to generate anagrams
@@ -74,7 +74,7 @@ public class Driver
         while (!readyToQuit)
         {
             System.out.println("Which phrase would you find anagrams for?");
-            String input = GetInput.getString();
+            String input = SYGetInput.getString();
             System.out.println("\nHere is a list of all words found within [" + input + "]");
             SYAnagramer solver = new SYAnagramer(dictionary);
 
@@ -111,7 +111,7 @@ public class Driver
                 System.out.println("[a] All Anagrams");
                 System.out.println("[m] Only those with fewer than a max number of words");
 
-                if(GetInput.getChar() == 'a')
+                if(SYGetInput.getChar() == 'a')
                 {
                     System.out.println("\n All possible Anagrams:");
                     long startTime = System.currentTimeMillis();//start time
@@ -121,7 +121,7 @@ public class Driver
                 else
                 {
                     System.out.println("What is the maximum number of words you want to have in your anagrams?");
-                    int maxNumb = GetInput.getRangeInt(1,input.length());
+                    int maxNumb = SYGetInput.getRangeInt(1,input.length());
                     System.out.println("\nAll Anagrams with " + maxNumb + " or fewer words in them:");
 
                     long startTime = System.currentTimeMillis();//start time
@@ -131,7 +131,7 @@ public class Driver
             }//end of solving one anagram
 
             System.out.println("\nSolve another?");
-            readyToQuit = GetInput.getYN() == 'n';
+            readyToQuit = SYGetInput.getYN() == 'n';
         }
     }//end of solveAnagram
 

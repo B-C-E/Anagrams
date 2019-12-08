@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+//This class finds anagrams of words, and can print them out.
 public class SYAnagramer
 {
 
@@ -20,7 +21,7 @@ public class SYAnagramer
     public List<String> getWords(String word)
     {
         //to letterInventory
-        LetterInventory wordInv = new LetterInventory(word);
+        SYLetterInventory wordInv = new SYLetterInventory(word);
 
         List<String> returnList = new ArrayList<>();
 
@@ -28,7 +29,7 @@ public class SYAnagramer
         for(String engWord: dict)
         {
             //if that word can be found within the given word
-            if (wordInv.contains(new LetterInventory(engWord)))
+            if (wordInv.contains(new SYLetterInventory(engWord)))
             {
                 returnList.add(engWord);//add it to the list
             }
@@ -44,10 +45,10 @@ public class SYAnagramer
     {
     List<String> words = getWords(word);
     //max words of -1 means print out all possible anagrams
-    printWords(new LetterInventory(word),words,new ArrayList<String>(),-1);
+    printWords(new SYLetterInventory(word),words,new ArrayList<String>(),-1);
     }//end of printAnagrams
 
-    private void printWords(LetterInventory remainingLetters, List<String> possibleWords, List<String> currentWords,int maxWords)
+    private void printWords(SYLetterInventory remainingLetters, List<String> possibleWords, List<String> currentWords, int maxWords)
     {
         //If an anagram has been found
         if (remainingLetters.isEmpty())
@@ -74,7 +75,7 @@ public class SYAnagramer
         //try to make an anagram using every possible remaining word
         for (String word: possibleWords)
         {
-            LetterInventory testWordInv = new LetterInventory(word);
+            SYLetterInventory testWordInv = new SYLetterInventory(word);
 
             if(remainingLetters.contains(testWordInv))//if the word can be found in our remaining letters (it is a valid anagram)
             {
@@ -94,7 +95,7 @@ public class SYAnagramer
     {
         List<String> words = getWords(word);
 
-        printWords(new LetterInventory(word),words,new ArrayList<String>(),maxWords);
+        printWords(new SYLetterInventory(word),words,new ArrayList<String>(),maxWords);
     }//end of printLimitedAnagrams
 
 }//End of SYAnagramer
