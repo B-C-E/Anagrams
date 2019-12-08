@@ -17,7 +17,7 @@ public class Driver
 
 
         //INTRO
-        System.out.println("Hello and welcome to the Anagram Solver!");
+        System.out.println("Hello and welcome to the Anagram Solver!\n");
 
 
         //Set Up Dictionary
@@ -53,24 +53,16 @@ public class Driver
 
 
         //LOOP
-        while (!b_readyToExit)
+        System.out.println();
+        System.out.println("Would you like to generate anagrams?");
+
+        if(GetInput.getYN() == 'y')//if they want to generate anagrams
         {
-            //SELECTIONS
-            System.out.println();
-            System.out.println("Would you like to create an anagram?");
-
-            //if they don't want to do anagram things
-            if (GetInput.getYN() == 'n')
-            {
-                b_readyToExit = true;//exit!
-            } else
-            {
-                solveAnagram(dictionary);
-            }
-
-        }
+            solveAnagram(dictionary);//this will loop
+        }//end of if they want to generate anagrams
         //EXIT MESSAGE
-        System.out.println("Goodbye! Have a nice one!");
+
+        System.out.println("\nGoodbye! Have a nice one!");
 
     }//END OF MAIN
 
@@ -81,7 +73,7 @@ public class Driver
 
         while (!readyToQuit)
         {
-            System.out.println("Which word would you find anagrams for?");
+            System.out.println("Which phrase would you find anagrams for?");
             String input = GetInput.getString();
             System.out.println("\nHere is a list of all words found within [" + input + "]");
             SYAnagramer solver = new SYAnagramer(dictionary);
@@ -94,14 +86,26 @@ public class Driver
             }
             else // if the solver found valid words
             {
-                System.out.print("\n[" + words.get(0));
+                //print the words
+                int charCount = 0; //every 100 ish characters goe down a line
+                System.out.print("\n[ ");
 
                 for (int i = 1; i < words.size(); i++)
                 {
-                    System.out.print(", " + words.get(i));
-                }
+                    charCount+=(words.get(i) +", ").length();
+                    if (charCount > 100)
+                    {
+                        charCount = 0;
+                        System.out.println();
+                    }
 
-                System.out.println();
+                    System.out.print(words.get(i) + ", ");
+
+                }
+                System.out.println(words.get(words.size()-1)+ " ]");
+
+                //end of printing words
+
                 System.out.println("\nWould you like to display a list of all possible anagrams in [" + input +
                         "], \nor all anagrams containing fewer than a maximum number of words?");
                 System.out.println("[a] All Anagrams");
@@ -110,18 +114,23 @@ public class Driver
                 if(GetInput.getChar() == 'a')
                 {
                     System.out.println("\n All possible Anagrams:");
+                    long startTime = System.currentTimeMillis();//start time
                     solver.printAnagrams(input);
+                    System.out.println(System.currentTimeMillis() - startTime + " ms elapsed.");//display how long it took
                 }
                 else
                 {
                     System.out.println("What is the maximum number of words you want to have in your anagrams?");
                     int maxNumb = GetInput.getRangeInt(1,input.length());
-                    System.out.println("\n All Anagrams with " + maxNumb + " or fewer words in them:");
+                    System.out.println("\nAll Anagrams with " + maxNumb + " or fewer words in them:");
+
+                    long startTime = System.currentTimeMillis();//start time
                     solver.printLimitedAnagrams(input,maxNumb);
+                    System.out.println(System.currentTimeMillis() - startTime + " ms elapsed.");//display how long it took
                 }
             }//end of solving one anagram
 
-            System.out.println("Solve another?");
+            System.out.println("\nSolve another?");
             readyToQuit = GetInput.getYN() == 'n';
         }
     }//end of solveAnagram

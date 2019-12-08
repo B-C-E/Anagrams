@@ -1,6 +1,7 @@
 package com.pac;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -33,6 +34,7 @@ public class SYAnagramer
             }
         }
 
+        Collections.sort(returnList);
         //return
         return returnList;
     }//end of getWords
@@ -76,8 +78,13 @@ public class SYAnagramer
 
             if(remainingLetters.contains(testWordInv))//if the word can be found in our remaining letters (it is a valid anagram)
             {
-                currentWords.add(word);
-                printWords(remainingLetters.subtract(testWordInv),possibleWords,currentWords,maxWords);
+                //create a new list containing all the words used up until this point,
+                //and the new valid word
+                List<String> newWordList = new ArrayList<String>();
+                newWordList.addAll(currentWords);
+                newWordList.add(word);
+
+                printWords(remainingLetters.subtract(testWordInv),possibleWords,newWordList,maxWords);
             }
         }
     }//end of printWords
